@@ -19,7 +19,7 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { logout, removeSuccess } from "../features/user/userSlice";
 import { removeErrors } from "../features/user/userSlice";
 import { toast } from "react-toastify";
-import { getAllMyOrders } from "../features/order/OrderSlice";  
+import { getAllMyOrders } from "../features/Order/OrderSlice.js";
 
 function Profile() {
 
