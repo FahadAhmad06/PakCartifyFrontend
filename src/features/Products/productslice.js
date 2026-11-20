@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+import api from "../../api";
 import { act } from "react";
 
 // createAsyncThunk is used to create asynchronous actions that can be dispatched to the Redux store. It generates action types and action creators for handling asynchronous operations, such as API calls. The generated actions include pending, fulfilled, and rejected states, which can be handled in the reducers to update the state accordingly.
@@ -8,7 +8,7 @@ export const getProducts = createAsyncThunk(
   "product/getProducts",
   async ({ keyword, page = 1, category,subcategory }, { rejectWithValue }) => {
     try {
-      let link = "/api/v1/products?page=" + page;
+      let link = "/products?page=" + page;
       if (category) {
         link += `&category=${encodeURIComponent(category)}`;
       }
@@ -20,9 +20,9 @@ export const getProducts = createAsyncThunk(
         link += `&keyword=${encodeURIComponent(keyword)}`;
       }
 
-      // const link = keyword?`/api/v1/products?keyword=${encodeURIComponent(keyword)} & page=${page}` : `/api/v1/products?page=${page}`;
+      // const link = keyword?`/products?keyword=${encodeURIComponent(keyword)} & page=${page}` : `/products?page=${page}`;
 
-      const data = await axios.get(link);
+      const data = await api.get(link);
       console.log("Response", data);
       return data.data;
     } catch (error) {
@@ -38,8 +38,8 @@ export const getProductdetails = createAsyncThunk(
   "product/getProductdetails",
   async (id, { rejectWithValue }) => {
     try {
-      const link = `/api/v1/product/${id}`;
-      const { data } = await axios.get(link);
+      const link = `/product/${id}`;
+      const { data } = await api.get(link);
       return data;
     } catch (error) {
       return rejectWithValue(
@@ -60,7 +60,7 @@ export const createReview = createAsyncThunk(
           'content-Type':'application/json'
         }
       }
-      const { data } = await axios.put('/api/v1/review',{rating,comment,productId},config);
+      const { data } = await api.put('/review',{rating,comment,productId},config);
       return data;
     } catch (error) {
       return rejectWithValue(

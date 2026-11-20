@@ -1,13 +1,13 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
-import axios from "axios";
+import api from "../../api";
 
 // ! add items to cart (used when adding a NEW item, e.g. from product page)
 export const addToCart = createAsyncThunk(
   "cart/addToCart",
   async ({ id, quantity }, { rejectWithValue }) => {
     try {
-      const { data } = await axios.get(`/api/v1/product/${id}`);
+      const { data } = await api.get(`/product/${id}`);
 
       if (quantity > data.product.stock) {
         return rejectWithValue("Requested quantity exceeds available stock");

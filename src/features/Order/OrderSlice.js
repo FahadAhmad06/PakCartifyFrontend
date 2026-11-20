@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice, isRejectedWithValue } from "@reduxjs/toolkit";
-import axios from "axios";
+import api from "../../api";
 
 
 // creating order
@@ -11,7 +11,7 @@ export const createOrder=createAsyncThunk('order/createOrder',async(order,{rejec
             },
             withCredentials: true,
         }
-        const {data}=await axios.post('/api/v1/new/order',order,config);
+        const {data}=await api.post('/new/order',order,config);
         
         return data
     }catch(error){
@@ -25,7 +25,7 @@ export const createOrder=createAsyncThunk('order/createOrder',async(order,{rejec
 // ! get user order
 export const getAllMyOrders=createAsyncThunk('order/getAllMyOrders',async(_,{rejectWithValue})=>{
     try{
-        const {data}=await axios.get('/api/v1/order/user', { withCredentials: true })
+        const {data}=await api.get('/order/user', { withCredentials: true })
         return data
     }catch(error){
         
@@ -39,7 +39,7 @@ export const getAllMyOrders=createAsyncThunk('order/getAllMyOrders',async(_,{rej
 // ! get order details
 export const getOrderDetails=createAsyncThunk('order/getOrderDetail',async(orderID,{rejectWithValue})=>{
     try{
-        const {data}=await axios.get(`/api/v1/order/${orderID}`, { withCredentials: true })
+        const {data}=await api.get(`/order/${orderID}`, { withCredentials: true })
         return data
     }catch(error){
         
@@ -53,7 +53,7 @@ export const getOrderDetails=createAsyncThunk('order/getOrderDetail',async(order
 // ! cancel user order (Processing only)
 export const cancelMyOrder = createAsyncThunk('order/cancelMyOrder', async(orderId, {rejectWithValue}) => {
     try {
-        const { data } = await axios.delete(`/api/v1/order/${orderId}`, { withCredentials: true });
+        const { data } = await api.delete(`/order/${orderId}`, { withCredentials: true });
         return { ...data, orderId };
     } catch (error) {
         return rejectWithValue(

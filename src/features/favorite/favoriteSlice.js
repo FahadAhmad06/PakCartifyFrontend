@@ -1,12 +1,12 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+import api from "../../api";
 
 // Toggle add/remove favorite
 export const toggleFavorite = createAsyncThunk(
   "favorite/toggleFavorite",
   async (productId, { rejectWithValue }) => {
     try {
-      const { data } = await axios.post(`/api/v1/favorite/toggle/${productId}`);
+      const { data } = await api.post(`/favorite/toggle/${productId}`);
       return { productId, ...data };
     } catch (error) {
       return rejectWithValue(
@@ -21,7 +21,7 @@ export const getMyFavorites = createAsyncThunk(
   "favorite/getMyFavorites",
   async (_, { rejectWithValue }) => {
     try {
-      const { data } = await axios.get(`/api/v1/favorites/me`);
+      const { data } = await api.get(`/favorites/me`);
       return data;
     } catch (error) {
       return rejectWithValue(
@@ -37,8 +37,8 @@ export const removeAllFavorites = createAsyncThunk(
 
         try {
 
-            const { data } = await axios.delete(
-                "/api/v1/favorites/remove-all"
+            const { data } = await api.delete(
+                "/favorites/remove-all"
             );
 
             return data;

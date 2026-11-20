@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+import api from "../../api";
 
 //  Regiter API
 
@@ -12,7 +12,7 @@ export const register = createAsyncThunk(
           "Content-Type": "multipart/form-data",
         },
       };
-      const { data } = await axios.post("/api/v1/register", userData, config);
+      const { data } = await api.post("/register", userData, config);
       return data;
     } catch (error) {
       return rejectWithValue(
@@ -32,8 +32,8 @@ export const verifyRegistrationOtp = createAsyncThunk(
         },
         withCredentials: true,
       };
-      const { data } = await axios.post(
-        "/api/v1/register/verify",
+      const { data } = await api.post(
+        "/register/verify",
         { email, otp },
         config,
       );
@@ -55,8 +55,8 @@ export const resendRegistrationOtp = createAsyncThunk(
           "Content-Type": "application/json",
         },
       };
-      const { data } = await axios.post(
-        "/api/v1/register/resend-otp",
+      const { data } = await api.post(
+        "/register/resend-otp",
         { email },
         config,
       );
@@ -78,8 +78,8 @@ export const login = createAsyncThunk(
           "Content-Type": "application/json",
         },
       };
-      const { data } = await axios.post(
-        "/api/v1/login",
+      const { data } = await api.post(
+        "/login",
         { email, password },
         config,
       );
@@ -97,7 +97,7 @@ export const loadUser = createAsyncThunk(
   "user/loadUser",
   async (_, { rejectWithValue }) => {
     try {
-      const { data } = await axios.get("/api/v1/profile", {
+      const { data } = await api.get("/profile", {
         withCredentials: true,
       });
 
@@ -114,7 +114,7 @@ export const logout = createAsyncThunk(
   "user/logout",
   async (_, { rejectWithValue }) => {
     try {
-      const { data } = await axios.get("/api/v1/logout", {
+      const { data } = await api.get("/logout", {
         withCredentials: true,
       });
       return data;
@@ -136,8 +136,8 @@ export const updateProfile = createAsyncThunk(
         },
       };
 
-      const { data } = await axios.put(
-        "/api/v1/profile/update",
+      const { data } = await api.put(
+        "/profile/update",
         userData,
         config,
       );
@@ -165,8 +165,8 @@ export const updatePassword = createAsyncThunk(
         withCredentials: true,
       };
 
-      const { data } = await axios.put(
-        "/api/v1/password/update",
+      const { data } = await api.put(
+        "/password/update",
         formData,
         config,
       );
@@ -191,8 +191,8 @@ export const forgotPassword = createAsyncThunk(
         },
       };
 
-      const { data } = await axios.post(
-        "/api/v1/password/forgot",
+      const { data } = await api.post(
+        "/password/forgot",
         { email },
         config,
       );
@@ -217,8 +217,8 @@ export const resetPassword = createAsyncThunk(
         },
       };
 
-      const { data } = await axios.post(
-        `/api/v1/reset/${token}`,
+      const { data } = await api.post(
+        `/reset/${token}`,
         userData,
         config,
       );

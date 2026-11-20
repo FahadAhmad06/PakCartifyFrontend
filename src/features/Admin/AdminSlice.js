@@ -1,12 +1,12 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+import api from "../../api";
 
 // Fetch All Products
 export const fetchAdminProducts = createAsyncThunk(
   "admin/fetchAdminProducts",
   async (_, { rejectWithValue }) => {
     try {
-      const { data } = await axios.get("/api/v1/admin/products");
+      const { data } = await api.get("/admin/products");
       return data;
     } catch (error) {
       return rejectWithValue(
@@ -21,8 +21,8 @@ export const createProduct = createAsyncThunk(
   "admin/createProduct",
   async (productData, { rejectWithValue }) => {
     try {
-      const { data } = await axios.post(
-        "/api/v1/admin/product/create",
+      const { data } = await api.post(
+        "/admin/product/create",
         productData,
         {
           withCredentials: true,
@@ -42,7 +42,7 @@ export const getAdminProductDetails = createAsyncThunk(
   "admin/getAdminProductDetails",
   async (id, { rejectWithValue }) => {
     try {
-      const { data } = await axios.get(`/api/v1/product/${id}`, {
+      const { data } = await api.get(`/product/${id}`, {
         withCredentials: true,
       });
 
@@ -60,8 +60,8 @@ export const updateProduct = createAsyncThunk(
   "admin/updateProduct",
   async ({ id, productData }, { rejectWithValue }) => {
     try {
-      const { data } = await axios.put(
-        `/api/v1/admin/products/${id}`,
+      const { data } = await api.put(
+        `/admin/products/${id}`,
         productData,
         {
           withCredentials: true,
@@ -82,7 +82,7 @@ export const deleteProduct = createAsyncThunk(
   "admin/deleteProduct",
   async (id, { rejectWithValue }) => {
     try {
-      const { data } = await axios.delete(`/api/v1/admin/products/${id}`);
+      const { data } = await api.delete(`/admin/products/${id}`);
       return data;
     } catch (error) {
       return rejectWithValue(error.response.data.message);
@@ -95,7 +95,7 @@ export const fetchUsers = createAsyncThunk(
   "admin/fetchUsers",
   async (_, { rejectWithValue }) => {
     try {
-      const { data } = await axios.get("/api/v1/Admin/user");
+      const { data } = await api.get("/Admin/user");
       return data;
     } catch (error) {
       return rejectWithValue(
@@ -110,7 +110,7 @@ export const getSingleUser = createAsyncThunk(
   "admin/getSingleUser",
   async (id, { rejectWithValue }) => {
     try {
-      const { data } = await axios.get(`/api/v1/Admin/user/${id}`);
+      const { data } = await api.get(`/Admin/user/${id}`);
       return data;
     } catch (error) {
       return rejectWithValue(
@@ -125,7 +125,7 @@ export const updateUserRole = createAsyncThunk(
   "admin/updateUserRole",
   async ({ userId, role }, { rejectWithValue }) => {
     try {
-      const { data } = await axios.put(`/api/v1/admin/user/${userId}`, {
+      const { data } = await api.put(`/admin/user/${userId}`, {
         role,
       });
       return data;
@@ -142,7 +142,7 @@ export const deleteUser = createAsyncThunk(
   "admin/deleteUser",
   async (userId, { rejectWithValue }) => {
     try {
-      const { data } = await axios.delete(`/api/v1/Admin/user/${userId}`);
+      const { data } = await api.delete(`/Admin/user/${userId}`);
       return data;
     } catch (error) {
       return rejectWithValue(
@@ -157,7 +157,7 @@ export const fetchAllOrders = createAsyncThunk(
   "admin/fetchAllOrders",
   async (_, { rejectWithValue }) => {
     try {
-      const { data } = await axios.get("/api/v1/admin/orders");
+      const { data } = await api.get("/admin/orders");
       return data;
     } catch (error) {
       return rejectWithValue(
@@ -172,7 +172,7 @@ export const deleteOrder = createAsyncThunk(
   "admin/deleteOrder",
   async (id, { rejectWithValue }) => {
     try {
-      const { data } = await axios.delete(`/api/v1/admin/order/${id}`);
+      const { data } = await api.delete(`/admin/order/${id}`);
       return data;
     } catch (error) {
       return rejectWithValue(
@@ -188,7 +188,7 @@ export const getSingleOrder = createAsyncThunk(
   "admin/getSingleOrder",
   async (id, { rejectWithValue }) => {
     try {
-      const { data } = await axios.get(`/api/v1/admin/order/${id}`, {
+      const { data } = await api.get(`/admin/order/${id}`, {
         withCredentials: true,
       });
 
@@ -206,8 +206,8 @@ export const updateOrderStatus = createAsyncThunk(
   "admin/updateOrderStatus",
   async ({ orderId, status }, { rejectWithValue }) => {
     try {
-      const { data } = await axios.put(
-        `/api/v1/admin/order/${orderId}`,
+      const { data } = await api.put(
+        `/admin/order/${orderId}`,
         {
           status,
         },
@@ -233,7 +233,7 @@ export const fetchProductReviews = createAsyncThunk(
   "admin/fetchProductReviews",
   async (productId, { rejectWithValue }) => {
     try {
-      const { data } = await axios.get(`/api/v1/admin/reviews?id=${productId}`);
+      const { data } = await api.get(`/admin/reviews?id=${productId}`);
 
       return data;
     } catch (error) {
@@ -249,8 +249,8 @@ export const deleteReview = createAsyncThunk(
   "admin/deleteReview",
   async ({ reviewId, productId }, { rejectWithValue }) => {
     try {
-      const { data } = await axios.delete(
-        `/api/v1/admin/reviews?id=${reviewId}&productId=${productId}`,
+      const { data } = await api.delete(
+        `/admin/reviews?id=${reviewId}&productId=${productId}`,
         { withCredentials: true },
       );
       return data;
