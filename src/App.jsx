@@ -17,7 +17,7 @@ import VerifyOtp from "./user/VerifyOtp";
 import Login from "./user/Login"
 import { useDispatch, useSelector } from "react-redux";
 import { loadUser } from "./features/user/userSlice";
-import UserDashboard from "./user/userDashboard"
+import UserDashboard from "./user/UserDashboard.jsx";
 import Profile from "./user/Profile";
 import ProtectRoute from "./coponents/ProtectRoute";
 import UpdateProfile from "./user/UpdateProfile";
