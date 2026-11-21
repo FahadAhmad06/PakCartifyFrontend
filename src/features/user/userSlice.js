@@ -97,9 +97,7 @@ export const loadUser = createAsyncThunk(
   "user/loadUser",
   async (_, { rejectWithValue }) => {
     try {
-      const { data } = await api.get("/profile", {
-        withCredentials: true,
-      });
+      const { data } = await api.get("/profile");
 
       return data;
     } catch (error) {
@@ -238,7 +236,7 @@ const userSlice = createSlice({
   name: "user",
   initialState: {
     user: null,
-    loading: false,
+    loading: true,
     error: null,
     success: false,
     isAuthenticated: false,
